@@ -16,32 +16,32 @@ const LoginPage = () => {
 
 	const queryClient  = useQueryClient()
 
-	const {mutate:loginMutation,isError,isPending,error} = useMutation({
-		mutationFn : async({username,password})=>{
-			try {
-				const res = await fetch("/api/auth/login",{
-					method : "POST",
-					headers : {
-						"Content-Type" : "application/json",
-					},
-					body : JSON.stringify({username,password})
-				})
-	
-				const data = await res.json()
-				if(!res.ok) throw new Error(data.error || "Failed to login")
-				console.log(data)
-				return data
-			} catch (error) {
-				console.error(error)
-				throw new Error(error)
-			}
-
+	const { mutate: loginMutation, isError, isPending, error } = useMutation({
+		mutationFn: async ({ username, password }) => {
+		  const res = await fetch("/api/auth/login", {
+			method: "POST",
+			headers: {
+			  "Content-Type": "application/json",
+			},
+			body: JSON.stringify({ username, password }),
+		  });
+	  
+		  const text = await res.text(); // Capture the raw response
+	  
+		  try {
+			const data = JSON.parse(text);
+			if (!res.ok) throw new Error(data.error || "Failed to login");
+			return data;
+		  } catch (error) {
+			console.error("Failed to parse JSON:", text);
+			throw new Error("Failed to login. Server response was not JSON.");
+		  }
 		},
-		onSuccess : () => {
-			// refetch the auth user
-			queryClient.invalidateQueries({queryKey:["authUser"]});
+		onSuccess: () => {
+		  queryClient.invalidateQueries({ queryKey: ["authUser"] });
 		}
-	})
+	  });
+	  
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
