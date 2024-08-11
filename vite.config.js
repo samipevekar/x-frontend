@@ -11,6 +11,7 @@ export default defineConfig({
     proxy: {
       "/api": {
         target: "https://x-backend-ujvu.onrender.com",
+        // target: "http://localhost:8080",
         changeOrigin: true
       }
     }
