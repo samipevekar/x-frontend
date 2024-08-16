@@ -38,7 +38,7 @@ const SignUpPage = () => {
 
 			} catch (error) {
 				console.error(error)
-				throw error
+				throw new Error(error)
 			}
 		},
 		onSuccess: () => {

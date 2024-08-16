@@ -18,6 +18,7 @@ const LoginPage = () => {
 
 	const { mutate: loginMutation, isError, isPending, error } = useMutation({
 		mutationFn: async ({ username, password }) => {
+			try {
 		  const res = await fetch("/api/auth/login", {
 			method: "POST",
 			headers: {
@@ -26,15 +27,12 @@ const LoginPage = () => {
 			body: JSON.stringify({ username, password }),
 		  });
 	  
-		  const text = await res.text(); // Capture the raw response
-	  
-		  try {
-			const data = JSON.parse(text);
+		  	const data = await res.json();
 			if (!res.ok) throw new Error(data.error || "Failed to login");
 			return data;
+			
 		  } catch (error) {
-			console.error("Failed to parse JSON:", text);
-			throw new Error("Failed to login. Server response was not JSON.");
+			throw new Error(error);
 		  }
 		},
 		onSuccess: () => {
