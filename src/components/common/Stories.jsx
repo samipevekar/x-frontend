@@ -21,7 +21,7 @@ export default function Stories() {
         queryKey: ["followingStories"],
         queryFn: async () => {
             try {
-                const res = await fetch("/api/story/followingstories");
+                const res = await fetch("https://x-backend-ujvu.onrender.com/api/story/followingstories",{credentials:"include"});
                 const data = await res.json();
                 if (!res.ok) {
                     throw new Error(data.message || "Something went wrong");
@@ -41,7 +41,7 @@ export default function Stories() {
         queryKey: ["userStory"],
         queryFn: async () => {
             try {
-                const res = await fetch(`/api/story/mystory/`)
+                const res = await fetch(`https://x-backend-ujvu.onrender.com/api/story/mystory/`,{credentials:"include"})
                 const data = await res.json();
                 if (!res.ok) {
                     throw new Error(data.message || "Failed to fetch user story");
@@ -72,7 +72,7 @@ export default function Stories() {
 
 
 
-                {myStory.length > 0 && myStory ?
+                {myStory?.length > 0 && myStory ?
                     (
                         myStory.map((story) => {
                             return (

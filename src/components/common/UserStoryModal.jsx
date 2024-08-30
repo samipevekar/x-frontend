@@ -17,8 +17,9 @@ const UserStoryModal = ({ id, story, onClose, storyId}) => {
 
   const {mutate:deleteStory,isPending} = useMutation({
     mutationFn:async(id)=>{
-      const res = await fetch(`/api/story/stories/${id}`,{
+      const res = await fetch(`https://x-backend-ujvu.onrender.com/api/story/stories/${id}`,{
         method: 'DELETE',
+        credentials:"include",
       })
 
       const data = await res.json()

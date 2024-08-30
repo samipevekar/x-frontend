@@ -9,7 +9,7 @@ export default function Bookmark() {
         queryKey: ['bookmarkPosts'],
         queryFn: async () => {
             try {
-                const res = await fetch(`/api/posts/bookmarks`);
+                const res = await fetch(`https://x-backend-ujvu.onrender.com/api/posts/bookmarks`,{credentials:"include"});
                 const data = await res.json();
     
                 if (!res.ok) {

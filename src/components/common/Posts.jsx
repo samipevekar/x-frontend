@@ -7,15 +7,15 @@ const Posts = ({ feedType, username, userId }) => {
 	const getPostEndpoint = () => {
 		switch (feedType) {
 			case "forYou":
-				return "/api/posts/all";
+				return "https://x-backend-ujvu.onrender.com/api/posts/all";
 			case "following":
-				return "/api/posts/following";
+				return "https://x-backend-ujvu.onrender.com/api/posts/following";
 			case "posts":
-				return `/api/posts/user/${username}`;
+				return `https://x-backend-ujvu.onrender.com/api/posts/user/${username}`;
 			case "likes":
-				return `/api/posts/likes/${userId}`;
+				return `https://x-backend-ujvu.onrender.com/api/posts/likes/${userId}`;
 			default:
-				return "/api/posts/all";
+				return "https://x-backend-ujvu.onrender.com/api/posts/all";
 		}
 	};
 
@@ -25,7 +25,7 @@ const Posts = ({ feedType, username, userId }) => {
 		queryKey: ["posts"],
 		queryFn: async () => {
 			try {
-				const res = await fetch(POST_ENDPOINT);
+				const res = await fetch(POST_ENDPOINT,{credentials:"include"});
 				const data = await res.json();
 
 				if (!res.ok) {

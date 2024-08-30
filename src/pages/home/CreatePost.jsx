@@ -16,8 +16,9 @@ const CreatePost = () => {
 	const {mutate:createPost,isPending,isError,error} = useMutation({
 		mutationFn: async({text,img}) =>{
 			try {
-				const res = await fetch("/api/posts/create",{
+				const res = await fetch("https://x-backend-ujvu.onrender.com/api/posts/create",{
 					method:"POST",
+					credentials:"include",
 					headers:{
 						'Content-Type': "application/json",
 					},

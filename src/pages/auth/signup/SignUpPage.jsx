@@ -23,8 +23,9 @@ const SignUpPage = () => {
 	const {mutate:signupMutation,isError,isPending,error} = useMutation({
 		mutationFn:async({email,username,fullName,password})=>{
 			try {
-				const res = await fetch("/api/auth/signup",{
+				const res = await fetch("https://x-backend-ujvu.onrender.com/api/auth/signup",{
 					method: "POST",
+					credentials:"include",
 					headers: {
 						"Content-Type": "application/json",
 					},

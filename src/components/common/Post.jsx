@@ -32,7 +32,7 @@ const Post = ({ post }) => {
 	// Handle delete post
 	const { mutate: deletePost, isPending: isDeleting } = useMutation({
 		mutationFn: async () => {
-			const res = await fetch(`/api/posts/${post._id}`, { method: "DELETE" });
+			const res = await fetch(`https://x-backend-ujvu.onrender.com/api/posts/${post._id}`, { method: "DELETE", credentials:"include" });
 			const data = await res.json();
 
 			if (!res.ok) throw new Error(data.error || "Something went wrong");
@@ -49,7 +49,7 @@ const Post = ({ post }) => {
 	// Handle like post
 	const { mutate: likePost, isPending: isLiking } = useMutation({
 		mutationFn: async () => {
-			const res = await fetch(`/api/posts/like/${originalPost._id}`, { method: "POST" });
+			const res = await fetch(`https://x-backend-ujvu.onrender.com/api/posts/like/${originalPost._id}`, { method: "POST", credentials:"include" });
 			const data = await res.json();
 
 			if (!res.ok) throw new Error(data.error || "Something went wrong");
@@ -74,8 +74,9 @@ const Post = ({ post }) => {
 	// Handle comment on post
 	const { mutate: commentPost, isPending: isCommenting } = useMutation({
 		mutationFn: async () => {
-			const res = await fetch(`/api/posts/comment/${originalPost._id}`, {
+			const res = await fetch(`https://x-backend-ujvu.onrender.com/api/posts/comment/${originalPost._id}`, {
 				method: "POST",
+				credentials:"include",
 				headers: { "Content-Type": "application/json" },
 				body: JSON.stringify({ text: comment }),
 			});
@@ -97,7 +98,7 @@ const Post = ({ post }) => {
 	// Handle bookmark post
 	const { mutate: bookmarkPost, isPending: isBookmarking } = useMutation({
 		mutationFn: async () => {
-			const res = await fetch(`/api/posts/bookmark/${originalPost._id}`, { method: "POST" });
+			const res = await fetch(`https://x-backend-ujvu.onrender.com/api/posts/bookmark/${originalPost._id}`, { method: "POST",credentials:"include", });
 			const data = await res.json();
 
 			if (!res.ok) throw new Error(data.error || "Something went wrong");
@@ -125,7 +126,7 @@ const Post = ({ post }) => {
 	// Handle repost
 	const { mutate: repostPost, isPending: isReposting } = useMutation({
 		mutationFn: async () => {
-			const res = await fetch(`/api/posts/repost/${post._id}`, { method: "POST" });
+			const res = await fetch(`https://x-backend-ujvu.onrender.com/api/posts/repost/${post._id}`, { method: "POST" ,credentials:"include"});
 			const data = await res.json();
 
 			if (!res.ok) throw new Error(data.error || "Something went wrong");

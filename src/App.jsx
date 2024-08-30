@@ -17,7 +17,7 @@ function App() {
 		queryKey:['authUser'],
 		queryFn: async()=>{
 			try {
-				const res = await fetch("/api/auth/me",{credentials:"include"});
+				const res = await fetch("https://x-backend-ujvu.onrender.com/api/auth/me",{credentials:"include"});
 				const data = await res.json();
 				if(data.error) return null
 				if(!res.ok){
@@ -29,7 +29,7 @@ function App() {
 				throw new Error(error)
 			}
 		},
-		retry: false
+		// retry: false
 	})
 
 	if(isLoading) {

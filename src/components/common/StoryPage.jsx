@@ -15,8 +15,9 @@ export default function StoryModal({ isOpen, onClose }) {
     const { mutate: createStory, isPending, isError, error } = useMutation({
         mutationFn: async ({ text, img }) => {
             try {
-                const res = await fetch("/api/story/create", {
+                const res = await fetch("https://x-backend-ujvu.onrender.com/api/story/create", {
                     method: "POST",
+                    credentials:"include",
                     headers: {
                         'Content-Type': "application/json",
                     },

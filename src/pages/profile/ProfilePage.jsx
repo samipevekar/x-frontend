@@ -45,7 +45,7 @@ const ProfilePage = () => {
 		queryKey: ["userProfile"],
 		queryFn: async () => {
 			try {
-				const res = await fetch(`/api/users/profile/${username}`);
+				const res = await fetch(`https://x-backend-ujvu.onrender.com/api/users/profile/${username}`,{credentials:"include"});
 				const data = await res.json();
 				if (!res.ok) {
 					throw new Error(data.error || "Something went wrong");
@@ -80,7 +80,7 @@ const ProfilePage = () => {
 		queryKey: ["userStory"],
 		queryFn: async () => {
 			try {
-				const res = await fetch(`/api/story/userstory/${user?._id}`)
+				const res = await fetch(`https://x-backend-ujvu.onrender.com/api/story/userstory/${user?._id}`,{credentials:"include"})
 				const data = await res.json();
 				if (!res.ok) {
 					throw new Error(data.message || "Failed to fetch user story");
@@ -123,7 +123,7 @@ const ProfilePage = () => {
 								</Link>
 								<div className='flex flex-col'>
 									<p className='font-bold text-lg'>{user?.fullName}</p>
-									<span className='text-sm text-slate-500'>{posts.length} posts</span>
+									<span className='text-sm text-slate-500'>{posts?.length} posts</span>
 								</div>
 							</div>
 							{/* COVER IMG */}

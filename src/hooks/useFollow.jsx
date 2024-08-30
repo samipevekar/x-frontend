@@ -7,8 +7,9 @@ const usefollow = ()=>{
     const {mutate:follow, isPending} = useMutation({
         mutationFn: async(userId)=>{
             try {
-                const res = await fetch(`/api/users/follow/${userId}`,{
-                    method: "POST"
+                const res = await fetch(`https://x-backend-ujvu.onrender.com/api/users/follow/${userId}`,{
+                    method: "POST",
+                    credentials:"include",
                 })
                 const data = await res.json()
                 if(!res.ok){
