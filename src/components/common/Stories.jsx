@@ -68,7 +68,7 @@ export default function Stories() {
 
     return (
         <>
-            <div className='flex gap-3 p-4 border-b border-gray-700 cursor-pointer overflow-auto max-w-[320px] sm:max-w-[650px] md:max-w-[700px] lg:max-w-full'>
+            <div className='flex gap-3 p-4 border-b border-gray-700 cursor-pointer overflow-auto max-w-[350px] sm:max-w-[650px] md:max-w-[700px] lg:max-w-full'>
 
 
 
