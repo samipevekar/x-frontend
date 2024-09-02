@@ -20,6 +20,9 @@ import StoryModal from "../../components/common/StoryPage";
 import UserStoryModal from "../../components/common/UserStoryModal";
 
 const ProfilePage = () => {
+
+	const URL = import.meta.env.VITE_URL
+
 	const [coverImg, setCoverImg] = useState(null);
 	const [profileImg, setProfileImg] = useState(null);
 	const [feedType, setFeedType] = useState("posts");
@@ -45,7 +48,7 @@ const ProfilePage = () => {
 		queryKey: ["userProfile"],
 		queryFn: async () => {
 			try {
-				const res = await fetch(`https://x-backend-ujvu.onrender.com/api/users/profile/${username}`,{credentials:"include"});
+				const res = await fetch(`${URL}/api/users/profile/${username}`,{credentials:"include"});
 				const data = await res.json();
 				if (!res.ok) {
 					throw new Error(data.error || "Something went wrong");
@@ -80,7 +83,7 @@ const ProfilePage = () => {
 		queryKey: ["userStory"],
 		queryFn: async () => {
 			try {
-				const res = await fetch(`https://x-backend-ujvu.onrender.com/api/story/userstory/${user?._id}`,{credentials:"include"})
+				const res = await fetch(`${URL}/api/story/userstory/${user?._id}`,{credentials:"include"})
 				const data = await res.json();
 				if (!res.ok) {
 					throw new Error(data.message || "Failed to fetch user story");

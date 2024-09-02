@@ -4,18 +4,21 @@ import { useQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
 
 const Posts = ({ feedType, username, userId }) => {
+
+	const URL = import.meta.env.VITE_URL
+	
 	const getPostEndpoint = () => {
 		switch (feedType) {
 			case "forYou":
-				return "https://x-backend-ujvu.onrender.com/api/posts/all";
+				return `${URL}/api/posts/all`;
 			case "following":
-				return "https://x-backend-ujvu.onrender.com/api/posts/following";
+				return `${URL}/api/posts/following`;
 			case "posts":
-				return `https://x-backend-ujvu.onrender.com/api/posts/user/${username}`;
+				return `${URL}/api/posts/user/${username}`;
 			case "likes":
-				return `https://x-backend-ujvu.onrender.com/api/posts/likes/${userId}`;
+				return `${URL}/api/posts/likes/${userId}`;
 			default:
-				return "https://x-backend-ujvu.onrender.com/api/posts/all";
+				return `${URL}/api/posts/all`;
 		}
 	};
 

@@ -11,11 +11,14 @@ import toast from "react-hot-toast";
 import { useEffect } from "react";
 
 const Sidebar = () => {
+
+	const URL = import.meta.env.VITE_URL
+
 	const queryClient = useQueryClient()
 	const {mutate:logout,isPending,isError,error} = useMutation({
 		mutationFn: async () => {
 			try {
-				const res = await fetch("https://x-backend-ujvu.onrender.com/api/auth/logout",{
+				const res = await fetch(`${URL}/api/auth/logout`,{
 					method: "POST",
 					credentials:"include",
 				})

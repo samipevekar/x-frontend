@@ -10,7 +10,7 @@ import toast from "react-hot-toast";
 
 const LoginPage = () => {
 
-	
+	const URL = import.meta.env.VITE_URL
 
 
 	const [formData, setFormData] = useState({
@@ -23,7 +23,7 @@ const LoginPage = () => {
 	const { mutate: loginMutation, isError, isPending, error } = useMutation({
 		mutationFn: async ({ username, password }) => {
 			try {
-		  const res = await fetch("https://x-backend-ujvu.onrender.com/api/auth/login", {
+		  const res = await fetch(`${URL}/api/auth/login`, {
 			method: "POST",
 			credentials:"include",
 			headers: {

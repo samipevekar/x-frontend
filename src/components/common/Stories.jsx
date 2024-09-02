@@ -10,6 +10,9 @@ import { BiPlus } from "react-icons/bi";
 import StoryModal from './StoryPage';
 
 export default function Stories() {
+
+    const URL = import.meta.env.VITE_URL
+
     const [selectedStory, setSelectedStory] = useState(null);
 
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -21,7 +24,7 @@ export default function Stories() {
         queryKey: ["followingStories"],
         queryFn: async () => {
             try {
-                const res = await fetch("https://x-backend-ujvu.onrender.com/api/story/followingstories",{credentials:"include"});
+                const res = await fetch(`${URL}/api/story/followingstories`,{credentials:"include"});
                 const data = await res.json();
                 if (!res.ok) {
                     throw new Error(data.message || "Something went wrong");
@@ -41,7 +44,7 @@ export default function Stories() {
         queryKey: ["userStory"],
         queryFn: async () => {
             try {
-                const res = await fetch(`https://x-backend-ujvu.onrender.com/api/story/mystory/`,{credentials:"include"})
+                const res = await fetch(`${URL}/api/story/mystory/`,{credentials:"include"})
                 const data = await res.json();
                 if (!res.ok) {
                     throw new Error(data.message || "Failed to fetch user story");

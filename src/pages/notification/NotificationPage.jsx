@@ -10,13 +10,15 @@ import { FaComment } from "react-icons/fa";
 
 const NotificationPage = () => {
 
+	const URL = import.meta.env.VITE_URL
+
 	const queryClient = useQueryClient()
 
 	const {data:notifications, isLoading} = useQuery({
 		queryKey: ["notifications"], 
 		queryFn: async()=>{
 			try {
-				const res = await fetch('https://x-backend-ujvu.onrender.com/api/notifications',{credentials:"include"});
+				const res = await fetch(`${URL}/api/notifications`,{credentials:"include"});
 				const data = res.json()
 				if(!res.ok){
 					throw new Error(data.message || "Something went wrong")
@@ -32,7 +34,7 @@ const NotificationPage = () => {
 	const {mutate:deleteNotifications} = useMutation({
 		mutationFn: async()=>{
 			try {
-				const res = await fetch(`https://x-backend-ujvu.onrender.com/api/notifications`,{
+				const res = await fetch(`${URL}/api/notifications`,{
 					method: 'DELETE',
 					credentials:"include",
 				})

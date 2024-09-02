@@ -7,11 +7,13 @@ import LoadingSpinner from './LoadingSpinner'
 
 const RightPanel = () => {
 
+	const URL = import.meta.env.VITE_URL
+
 	const {data:suggestedUsers,isLoading} = useQuery({
 		queryKey: ["suggestedUsers"],
 		queryFn: async() =>{
 			try {
-				const res = await fetch("https://x-backend-ujvu.onrender.com/api/users/suggested",{credentials:"include"})
+				const res = await fetch(`${URL}/api/users/suggested`,{credentials:"include"})
 				const data = await res.json();
 				if(!res.ok){
 					throw new Error(data.error || "Something went wrong")
