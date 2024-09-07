@@ -1,7 +1,8 @@
 import { useQuery } from '@tanstack/react-query'
-import React, { useEffect } from 'react'
-import Post from '../../components/common/Post'
+import React, { lazy, Suspense, useEffect } from 'react'
 import PostSkeleton from '../../components/skeletons/PostSkeleton';
+
+const Post = lazy(()=>import('../../components/common/Post'))
 
 export default function Bookmark() {
 
@@ -47,7 +48,7 @@ export default function Bookmark() {
                 
                 {bookmarkPosts && bookmarkPosts.length > 0 && !isRefetching ?
                     bookmarkPosts.map((post) => (
-                        <Post key={post._id} post={post} />
+                        <Suspense fallback={<></>}><Post key={post._id} post={post} /></Suspense> 
                     ))
                     :
                     !isRefetching && (

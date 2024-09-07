@@ -13,9 +13,7 @@ import { formatPostDate } from "../../utils/date";
 
 const Post = ({ post }) => {
 
-	const URL = import.meta.env.VITE_URL
-
-	
+	const URL = import.meta.env.VITE_URL	
 
 
 	const [comment, setComment] = useState("");

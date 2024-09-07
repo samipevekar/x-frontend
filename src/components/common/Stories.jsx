@@ -1,13 +1,14 @@
-import React, { useState } from 'react';
-import Story from './Story';
+import React, { lazy, Suspense, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
-import LoadingSpinner from './LoadingSpinner';
-import UserStoryModal from './UserStoryModal';
 import StorySkeleton from '../skeletons/StorySkeleton';
 
+const Story = lazy(() => import('./Story'));
+const UserStoryModal = lazy(() => import('./UserStoryModal'));
+const StoryModal = lazy(() => import('./StoryPage'));
+
 import { BiPlus } from "react-icons/bi";
-import StoryModal from './StoryPage';
+
 
 export default function Stories() {
 
@@ -24,7 +25,7 @@ export default function Stories() {
         queryKey: ["followingStories"],
         queryFn: async () => {
             try {
-                const res = await fetch(`${URL}/api/story/followingstories`,{credentials:"include"});
+                const res = await fetch(`${URL}/api/story/followingstories`, { credentials: "include" });
                 const data = await res.json();
                 if (!res.ok) {
                     throw new Error(data.message || "Something went wrong");
@@ -44,7 +45,7 @@ export default function Stories() {
         queryKey: ["userStory"],
         queryFn: async () => {
             try {
-                const res = await fetch(`${URL}/api/story/mystory/`,{credentials:"include"})
+                const res = await fetch(`${URL}/api/story/mystory`, { credentials: "include" })
                 const data = await res.json();
                 if (!res.ok) {
                     throw new Error(data.message || "Failed to fetch user story");
@@ -96,10 +97,12 @@ export default function Stories() {
                                 <div className='w-4 h-4 absolute right-2 top-[50px] text-center  bg-primary  flex items-center justify-center rounded-full text-[12px] '><BiPlus /></div>
 
                             </div>
-                            <StoryModal
-                                isOpen={isModalOpen}
-                                onClose={() => setIsModalOpen(false)}
-                            />
+                            <Suspense fallback={<></>}>
+                                <StoryModal
+                                    isOpen={isModalOpen}
+                                    onClose={() => setIsModalOpen(false)}
+                                />
+                            </Suspense>
                         </div>
                     )
                 }
@@ -108,13 +111,13 @@ export default function Stories() {
                 {followingStories && followingStories.length > 0 && (
                     followingStories.map((story) => (
                         <div className='flex-shrink-0' key={story._id} onClick={() => handleStoryClick(story)}>
-                            <Story profileImg={story.user.profileImg || "/avatar-placeholder.png"} username={story.user.username} />
+                            <Suspense fallback={<></>}><Story profileImg={story.user.profileImg || "/avatar-placeholder.png"} username={story.user.username} /></Suspense>
                         </div>
                     ))
                 )}
             </div>
 
-            <UserStoryModal id="following_story" story={selectedStory} onClose={handleOnClose} storyId={selectedStory?._id}  />
+            <Suspense fallback={<></>}><UserStoryModal id="following_story" story={selectedStory} onClose={handleOnClose} storyId={selectedStory?._id} /></Suspense>
         </>
     );
 }

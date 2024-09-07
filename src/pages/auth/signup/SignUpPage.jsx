@@ -1,14 +1,13 @@
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { lazy, Suspense, useState } from "react";
 
-import XSvg from "../../../components/svgs/X";
+const XSvg = lazy(()=>import("../../../components/svgs/X")) ;
 
 import { MdOutlineMail } from "react-icons/md";
 import { FaUser } from "react-icons/fa";
 import { MdPassword } from "react-icons/md";
 import { MdDriveFileRenameOutline } from "react-icons/md";
 import { useMutation, useQueryClient } from "@tanstack/react-query"
-import toast from "react-hot-toast";
 
 const SignUpPage = () => {
 
@@ -63,7 +62,7 @@ const SignUpPage = () => {
 	return (
 		<div className='max-w-screen-xl mx-auto flex h-screen px-10'>
 			<div className='flex-1 hidden lg:flex items-center  justify-center'>
-				<XSvg className=' lg:w-2/3 fill-white' />
+			 	<Suspense fallback={<></>}><XSvg className=' lg:w-2/3 fill-white' /></Suspense> 
 			</div>
 			<div className='flex-1 flex flex-col justify-center items-center'>
 				<form className='lg:w-2/3  mx-auto md:mx-20 flex gap-4 flex-col' onSubmit={handleSubmit}>

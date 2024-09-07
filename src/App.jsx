@@ -1,5 +1,6 @@
 import { Navigate, Route,Routes } from "react-router-dom";
 import { lazy, Suspense } from "react";
+import LoadingSpinner from "./components/common/LoadingSpinner";
 
 
 const HomePage = lazy(()=>import("./pages/home/HomePage")) ;
@@ -12,7 +13,6 @@ const ProfilePage = lazy(()=>import("./pages/profile/ProfilePage")) ;
 const Bookmark = lazy(()=>import("./pages/bookmark/Bookmark")) ;
 const Search = lazy(()=>import("./pages/search/Search")) ;
 
-import LoadingSpinner from "./components/common/LoadingSpinner";
 
 import {Toaster} from "react-hot-toast"
 import { useQuery } from "@tanstack/react-query";
@@ -56,18 +56,18 @@ function App() {
 	return (
 		<div className='flex max-w-6xl mx-auto'>
       {/* common component, bcoz it's not wrapped with Routes */}
-      	{authUser &&  <Suspense fallback={<LoadingSpinner size="sm" />}><Sidebar/></Suspense>}   
+      	{authUser &&  <Suspense fallback={<></>}><Sidebar/></Suspense>}   
 			<Routes>
-				<Route path='/' element={authUser ? <Suspense fallback={<LoadingSpinner size="sm" />}><HomePage /></Suspense> : <Navigate to="/login"/>} />
-				<Route path='/search' element={authUser ?  <Suspense fallback={<LoadingSpinner size="sm" />}><Search /></Suspense>  : <Navigate to="/login"/>} />
-				<Route path='/login' element={!authUser ?  <Suspense fallback={<LoadingSpinner size="sm" />}><LoginPage /></Suspense> : <Navigate to="/"/>} />
-				<Route path='/signup' element={!authUser ? <Suspense fallback={<LoadingSpinner size="sm" />}><SignUpPage /></Suspense> : <Navigate to="/"/>} />
-				<Route path='/notifications' element={authUser ?  <Suspense fallback={<LoadingSpinner size="sm" />}><NotificationPage /></Suspense> : <Navigate to="/login"/>} />
-				<Route path='/bookmark' element={authUser ?  <Suspense fallback={<LoadingSpinner size="sm" />}><Bookmark /></Suspense> : <Navigate to="/login"/>} />
-				<Route path='/profile/:username' element={authUser ?  <Suspense fallback={<LoadingSpinner size="sm" />}><ProfilePage /></Suspense> : <Navigate to="/"/>} />
+				<Route path='/' element={authUser ? <Suspense fallback={<></>}><HomePage /></Suspense> : <Navigate to="/login"/>} />
+				<Route path='/search' element={authUser ?  <Suspense fallback={<></>}><Search /></Suspense>  : <Navigate to="/login"/>} />
+				<Route path='/login' element={!authUser ?  <Suspense fallback={<></>}><LoginPage /></Suspense> : <Navigate to="/"/>} />
+				<Route path='/signup' element={!authUser ? <Suspense fallback={<></>}><SignUpPage /></Suspense> : <Navigate to="/"/>} />
+				<Route path='/notifications' element={authUser ?  <Suspense fallback={<></>}><NotificationPage /></Suspense> : <Navigate to="/login"/>} />
+				<Route path='/bookmark' element={authUser ?  <Suspense fallback={<></>}><Bookmark /></Suspense> : <Navigate to="/login"/>} />
+				<Route path='/profile/:username' element={authUser ?  <Suspense fallback={<></>}><ProfilePage /></Suspense> : <Navigate to="/"/>} />
 				<Route path='*' element={<Navigate to="/"/>} />
 			</Routes>
-		{authUser && <Suspense fallback={<LoadingSpinner size="sm" />}><RightPanel/></Suspense>}
+		{authUser && <Suspense fallback={<></>}><RightPanel/></Suspense>}
 		<Toaster/>
 		</div>
 	);

@@ -12,7 +12,7 @@ const HomePage = () => {
 	return (
 		<>
 			<div className='flex-[4_4_0] mr-auto border-r border-gray-700 min-h-screen max-w-[700px] '>
-			 	<Suspense fallback={<LoadingSpinner size="sm" />}><Stories/></Suspense>
+			 	<Suspense fallback={<></>}><Stories/></Suspense>
 				{/* Header */}
 				<div className='flex w-full border-b border-gray-700'>
 					<div
@@ -38,11 +38,11 @@ const HomePage = () => {
 				</div>
 
 				{/*  CREATE POST INPUT */}
-				<Suspense fallback={<LoadingSpinner size="sm" />}><CreatePost /></Suspense>
+				<Suspense fallback={<></>}><CreatePost /></Suspense>
 				
 
 				{/* POSTS */}
-				<Suspense fallback={<LoadingSpinner size="sm" />}><Posts feedType={feedType} /></Suspense>
+				<Suspense fallback={<></>}><Posts feedType={feedType} /></Suspense>
 				
 			</div>
 		</>
