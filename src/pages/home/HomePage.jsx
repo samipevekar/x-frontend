@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useState, lazy, Suspense } from "react";
 
-import Posts from "../../components/common/Posts";
-import CreatePost from "./CreatePost";
-import Stories from "../../components/common/Stories";
+const Posts = lazy(()=>import("../../components/common/Posts")) ;
+const CreatePost = lazy(()=>import("./CreatePost")) ;
+const Stories =  lazy(()=> import("../../components/common/Stories")) ;
+
+import LoadingSpinner from "../../components/common/LoadingSpinner";
 
 const HomePage = () => {
 	const [feedType, setFeedType] = useState("forYou");
@@ -10,7 +12,7 @@ const HomePage = () => {
 	return (
 		<>
 			<div className='flex-[4_4_0] mr-auto border-r border-gray-700 min-h-screen max-w-[700px] '>
-				<Stories/>
+			 	<Suspense fallback={<LoadingSpinner size="sm" />}><Stories/></Suspense>
 				{/* Header */}
 				<div className='flex w-full border-b border-gray-700'>
 					<div
@@ -36,10 +38,12 @@ const HomePage = () => {
 				</div>
 
 				{/*  CREATE POST INPUT */}
-				<CreatePost />
+				<Suspense fallback={<LoadingSpinner size="sm" />}><CreatePost /></Suspense>
+				
 
 				{/* POSTS */}
-				<Posts feedType={feedType} />
+				<Suspense fallback={<LoadingSpinner size="sm" />}><Posts feedType={feedType} /></Suspense>
+				
 			</div>
 		</>
 	);

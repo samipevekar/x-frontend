@@ -1,16 +1,22 @@
 import { Navigate, Route,Routes } from "react-router-dom";
-import HomePage from "./pages/home/HomePage";
-import LoginPage from "./pages/auth/login/LoginPage";
-import SignUpPage from "./pages/auth/signup/SignUpPage";
-import Sidebar from "./components/common/Sidebar";
-import RightPanel from "./components/common/RightPanel";
-import NotificationPage from "./pages/notification/NotificationPage";
-import ProfilePage from "./pages/profile/ProfilePage";
+import { lazy, Suspense } from "react";
+
+
+const HomePage = lazy(()=>import("./pages/home/HomePage")) ;
+const LoginPage = lazy(()=>import("./pages/auth/login/LoginPage")) ;
+const SignUpPage = lazy(()=>import("./pages/auth/signup/SignUpPage")) ;
+const Sidebar = lazy(()=>import("./components/common/Sidebar")) ;
+const RightPanel = lazy(()=>import("./components/common/RightPanel")) ;
+const NotificationPage = lazy(()=>import("./pages/notification/NotificationPage")) ;
+const ProfilePage = lazy(()=>import("./pages/profile/ProfilePage")) ;
+const Bookmark = lazy(()=>import("./pages/bookmark/Bookmark")) ;
+const Search = lazy(()=>import("./pages/search/Search")) ;
+
+import LoadingSpinner from "./components/common/LoadingSpinner";
+
 import {Toaster} from "react-hot-toast"
 import { useQuery } from "@tanstack/react-query";
-import LoadingSpinner from "./components/common/LoadingSpinner";
-import Bookmark from "./pages/bookmark/Bookmark";
-import Search from "./pages/search/Search";
+
 
 function App() {
 
@@ -50,18 +56,18 @@ function App() {
 	return (
 		<div className='flex max-w-6xl mx-auto'>
       {/* common component, bcoz it's not wrapped with Routes */}
-      	{authUser && <Sidebar/>}   
+      	{authUser &&  <Suspense fallback={<LoadingSpinner size="sm" />}><Sidebar/></Suspense>}   
 			<Routes>
-				<Route path='/' element={authUser ? <HomePage /> : <Navigate to="/login"/>} />
-				<Route path='/search' element={authUser ? <Search /> : <Navigate to="/login"/>} />
-				<Route path='/login' element={!authUser ? <LoginPage /> : <Navigate to="/"/>} />
-				<Route path='/signup' element={!authUser ? <SignUpPage /> : <Navigate to="/"/>} />
-				<Route path='/notifications' element={authUser ? <NotificationPage /> : <Navigate to="/login"/>} />
-				<Route path='/bookmark' element={authUser ? <Bookmark /> : <Navigate to="/login"/>} />
-				<Route path='/profile/:username' element={authUser ? <ProfilePage /> : <Navigate to="/"/>} />
+				<Route path='/' element={authUser ? <Suspense fallback={<LoadingSpinner size="sm" />}><HomePage /></Suspense> : <Navigate to="/login"/>} />
+				<Route path='/search' element={authUser ?  <Suspense fallback={<LoadingSpinner size="sm" />}><Search /></Suspense>  : <Navigate to="/login"/>} />
+				<Route path='/login' element={!authUser ?  <Suspense fallback={<LoadingSpinner size="sm" />}><LoginPage /></Suspense> : <Navigate to="/"/>} />
+				<Route path='/signup' element={!authUser ? <Suspense fallback={<LoadingSpinner size="sm" />}><SignUpPage /></Suspense> : <Navigate to="/"/>} />
+				<Route path='/notifications' element={authUser ?  <Suspense fallback={<LoadingSpinner size="sm" />}><NotificationPage /></Suspense> : <Navigate to="/login"/>} />
+				<Route path='/bookmark' element={authUser ?  <Suspense fallback={<LoadingSpinner size="sm" />}><Bookmark /></Suspense> : <Navigate to="/login"/>} />
+				<Route path='/profile/:username' element={authUser ?  <Suspense fallback={<LoadingSpinner size="sm" />}><ProfilePage /></Suspense> : <Navigate to="/"/>} />
 				<Route path='*' element={<Navigate to="/"/>} />
 			</Routes>
-		{authUser && <RightPanel/>}
+		{authUser && <Suspense fallback={<LoadingSpinner size="sm" />}><RightPanel/></Suspense>}
 		<Toaster/>
 		</div>
 	);

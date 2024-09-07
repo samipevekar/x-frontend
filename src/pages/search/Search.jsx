@@ -47,13 +47,13 @@ export default function Search() {
     };
 
     return (
-        <div className='flex-[4_4_0] border-r border-gray-700 min-h-screen p-4'>
+        <div className='flex-[4_4_0] border-r border-gray-700 min-h-screen p-3'>
             <div className='flex flex-col justify-center items-center'>
                 <form className='flex items-center gap-2' onSubmit={handleSearch}>
                     <input
                         type="text"
                         placeholder="Search"
-                        className="input rounded-full input-bordered w-[600px] max-w-[600px] max-sm:max-w-[280px]"
+                        className="input rounded-full input-bordered w-[600px] max-w-[600px] max-sm:max-w-[270px]"
                         onChange={(e) => setSearch(e.target.value)}
                         value={search}
                     />
