@@ -1,13 +1,14 @@
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import toast from "react-hot-toast";
+import { Link } from "react-router-dom";
+
 import XSvg from "../svgs/X";
 
 import { MdHomeFilled } from "react-icons/md";
 import { IoNotifications } from "react-icons/io5";
 import { FaUser } from "react-icons/fa";
-import { Link } from "react-router-dom";
 import { BiLogOut } from "react-icons/bi";
 import { FaBookmark } from "react-icons/fa";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import toast from "react-hot-toast";
 import { FiSearch } from "react-icons/fi";
 
 const Sidebar = () => {
@@ -114,7 +115,7 @@ const Sidebar = () => {
 					>
 						<div className='avatar hidden md:inline-flex'>
 							<div className='w-8 rounded-full'>
-								<img src={authUser?.profileImg || "/avatar-placeholder.png"} />
+								<img src={authUser?.profileImg || "/avatar-placeholder.png"} loading="lazy" />
 							</div>
 						</div>
 						<div className='flex justify-between flex-1'>

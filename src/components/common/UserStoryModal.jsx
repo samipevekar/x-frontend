@@ -69,14 +69,14 @@ const UserStoryModal = ({ id, story, onClose, storyId}) => {
 
         <Link to={`/profile/${story?.user.username}`}>
           <div className='flex items-center gap-2 absolute top-4'>
-            <img className='w-8 h-8 rounded-full' src={story?.user.profileImg || '/avatar-placeholder.png'} alt="" />
+            <img className='w-8 h-8 rounded-full' src={story?.user.profileImg || '/avatar-placeholder.png'} alt="" loading='lazy' />
             <p className='text-white font-semibold'>{story?.user.username}</p>
             <p>{formatPostDate(story?.createdAt)}</p>
           </div>
         </Link>
         {<div className='mt-[50px] '>
           {story?.img ? (
-            <img className='w-full h-[450px] object-contain ' src={story?.img} alt="User Story" />
+            <img className='w-full h-[450px] object-contain ' src={story?.img} alt="User Story" loading='lazy' />
           ) : (
             <p className='text-[18px] break-words'>{story?.text}</p>
           )}

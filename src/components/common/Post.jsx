@@ -183,7 +183,7 @@ const Post = ({ post }) => {
 				{repost && <div className="absolute top-2 text-gray-400 font-bold flex items-center gap-2 text-[13px]"><BiRepost className="text-[18px]" /> {repostedByMe ? "You" : post.user.username} reposted</div>}
 				<div className='avatar'>
 					<Link to={`/profile/${postOwner.username}`} className='w-8 h-8 rounded-full overflow-hidden'>
-						<img src={postOwner.profileImg || "/avatar-placeholder.png"} />
+						<img src={postOwner.profileImg || "/avatar-placeholder.png"} loading="lazy" />
 					</Link>
 				</div>
 				<div className='flex flex-col flex-1'>
@@ -228,7 +228,7 @@ const Post = ({ post }) => {
 							<img
 								src={repost ? originalPost.img : post.img}
 								className='h-80 object-contain rounded-lg border border-gray-700'
-								alt=''
+								alt='' loading="lazy"
 							/>
 						)}
 					</div>
@@ -258,7 +258,7 @@ const Post = ({ post }) => {
 												<div className='avatar'>
 													<div className='w-8 rounded-full'>
 														<img
-															src={comment.user.profileImg || "/avatar-placeholder.png"}
+															src={comment.user.profileImg || "/avatar-placeholder.png"} loading="lazy"
 														/>
 													</div>
 												</div>

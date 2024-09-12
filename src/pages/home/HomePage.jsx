@@ -4,7 +4,6 @@ const Posts = lazy(()=>import("../../components/common/Posts")) ;
 const CreatePost = lazy(()=>import("./CreatePost")) ;
 const Stories =  lazy(()=> import("../../components/common/Stories")) ;
 
-import LoadingSpinner from "../../components/common/LoadingSpinner";
 
 const HomePage = () => {
 	const [feedType, setFeedType] = useState("forYou");

@@ -3,7 +3,7 @@ import { FiSearch } from "react-icons/fi";
 import { useQuery } from '@tanstack/react-query';
 import LoadingSpinner from '../../components/common/LoadingSpinner';
 
-const SearchUser = lazy(() => import("./SearchUser"));
+import SearchUser from "./SearchUser";
 
 export default function Search() {
     const URL = import.meta.env.VITE_URL;
@@ -76,14 +76,12 @@ export default function Search() {
 
                 {searches && searches.length > 0 && (
                     searches.map((user) => (
-                        <Suspense fallback={<></>}>
-                            <SearchUser
-                                key={user._id}
-                                profileImg={user?.profileImg}
-                                username={user?.username}
-                                fullName={user?.fullName}
-                            />
-                        </Suspense>
+                        <SearchUser
+                            key={user._id}
+                            profileImg={user?.profileImg}
+                            username={user?.username}
+                            fullName={user?.fullName}
+                        />
                     ))
                 )}
             </div>

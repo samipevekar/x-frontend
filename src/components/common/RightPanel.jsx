@@ -5,8 +5,6 @@ import RightPanelSkeleton from "../skeletons/RightPanelSkeleton";
 import usefollow from "../../hooks/useFollow" ;
 
 import LoadingSpinner from './LoadingSpinner'
-import { lazy } from "react";
-
 const RightPanel = () => {
 
 	const URL = import.meta.env.VITE_URL
@@ -52,7 +50,7 @@ const RightPanel = () => {
 								<div className='flex gap-2 items-center'>
 									<div className='avatar'>
 										<div className='w-8 rounded-full'>
-											<img src={user.profileImg || "/avatar-placeholder.png"} />
+											<img src={user.profileImg || "/avatar-placeholder.png"} loading="lazy" />
 										</div>
 									</div>
 									<div className='flex flex-col'>

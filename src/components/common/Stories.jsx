@@ -82,7 +82,7 @@ export default function Stories() {
                             return (
                                 <div key={story._id} className='shrink-0' onClick={() => handleStoryClick(story)}>
                                     <div className='flex-col items-center justify-center '>
-                                        <img className='w-[70px] h-[70px]  rounded-full m-auto border-[3px] border-primary p-[2px]' src={authUser.profileImg || '/avatar-placeholder.png'} alt="" />
+                                        <img className='w-[70px] h-[70px]  rounded-full m-auto border-[3px] border-primary p-[2px]' src={authUser.profileImg || '/avatar-placeholder.png'} alt="" loading='lazy' />
                                         <p className='text-[12px]  text-center'>Your Story</p>
                                     </div>
                                 </div>
@@ -92,7 +92,7 @@ export default function Stories() {
                     (
                         <div className='shrink-0'>
                             <div className='flex-col items-center justify-center relative ' onClick={() => setIsModalOpen(true)}>
-                                <img className='w-[70px] h-[70px]  rounded-full m-auto' src={authUser.profileImg || '/avatar-placeholder.png'} alt="" />
+                                <img className='w-[70px] h-[70px]  rounded-full m-auto' src={authUser.profileImg || '/avatar-placeholder.png'} alt="" loading='lazy' />
                                 <p className='text-[12px]  text-center'>Your Story</p>
                                 <div className='w-4 h-4 absolute right-2 top-[50px] text-center  bg-primary  flex items-center justify-center rounded-full text-[12px] '><BiPlus /></div>
 

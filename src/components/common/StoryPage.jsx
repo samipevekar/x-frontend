@@ -142,6 +142,7 @@ export default function StoryModal({ isOpen, onClose }) {
                                         src={img}
                                         alt="Preview"
                                         className="max-w-full h-[250px] rounded-lg border border-gray-300"
+                                        loading='lazy'
                                     />
                                 </div>
                             )}

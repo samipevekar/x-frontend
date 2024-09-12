@@ -91,7 +91,7 @@ const CreatePost = () => {
 								imgRef.current.value = null;
 							}}
 						/>
-						<img src={img} className='w-full mx-auto h-72 object-contain rounded' />
+						<img src={img} className='w-full mx-auto h-72 object-contain rounded' loading="lazy" />
 					</div>
 				)}
 

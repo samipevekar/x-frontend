@@ -3,8 +3,8 @@ import { Link, useParams } from "react-router-dom";
 import ProfileHeaderSkeleton from "../../components/skeletons/ProfileHeaderSkeleton";
 import useFollow from "../../hooks/useFollow";
 import useUpdateUserProfile from "../../hooks/useUpdateUserProfile";
+import Posts from "../../components/common/Posts";
 
-const Posts = lazy(() => import("../../components/common/Posts"));
 const EditProfileModal = lazy(() => import("./EditProfileModal"));
 const StoryModal = lazy(() => import("../../components/common/StoryPage"));
 const UserStoryModal = lazy(() => import("../../components/common/UserStoryModal"));
@@ -133,6 +133,7 @@ const ProfilePage = () => {
 									src={coverImg || user?.coverImg || "/cover.png"}
 									className='h-52 max-sm:h-32 w-full object-cover'
 									alt='cover image'
+									loading="lazy"
 								/>
 								{isMyProfile && (
 									<div
@@ -160,7 +161,7 @@ const ProfilePage = () => {
 								{/* USER AVATAR */}
 								<div className={`avatar absolute -bottom-16 left-4 ${userStory?.length > 0 ? "border-[3px] p-[3px] rounded-full border-primary" : ""} `}>
 									<div className={`w-32 max-sm:w-20 rounded-full cursor-pointer relative group/avatar `} >
-										<img onClick={() => document.getElementById('user_story_modal').showModal()} src={profileImg || user?.profileImg || "/avatar-placeholder.png"} />
+										<img onClick={() => document.getElementById('user_story_modal').showModal()} src={profileImg || user?.profileImg || "/avatar-placeholder.png"} loading="lazy" />
 										{isMyProfile && (<div className='absolute top-5 right-3 p-1 bg-primary rounded-full group-hover/avatar:opacity-100 opacity-0 cursor-pointer'>
 
 											<MdEdit
