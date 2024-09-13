@@ -40,10 +40,6 @@ export default defineConfig({
         ]
       }
     }),
-    PurgeCSS({
-      content: ['./index.html', './src/**/*.{js,jsx,ts,tsx}'], // Specify the paths to scan for used classes
-      safelist: ['some-safe-class', /^safe-class-regex/] // Keep certain classes if needed
-    }),
   ],
   build: {
     outDir: 'dist',
