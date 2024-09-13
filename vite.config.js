@@ -1,64 +1,19 @@
-import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
-import { visualizer } from 'rollup-plugin-visualizer'; // Optional for bundle analysis
-import viteImagemin from 'vite-plugin-imagemin'; // Image optimization plugin
-import PurgeCSS from 'vite-plugin-purgecss'; // PurgeCSS for unused CSS
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
 
 export default defineConfig({
-  plugins: [
-    react(),
-    visualizer({
-      filename: './dist/stats.html',
-      open: true,
-    }),
-    viteImagemin({
-      // Optimization settings for different image types
-      gifsicle: {
-        optimizationLevel: 7,
-        interlaced: false,
-      },
-      optipng: {
-        optimizationLevel: 7,
-      },
-      mozjpeg: {
-        quality: 80,
-      },
-      pngquant: {
-        quality: [0.7, 0.9],
-        speed: 4,
-      },
-      svgo: {
-        plugins: [
-          {
-            name: 'removeViewBox',
-            active: false,
-          },
-          {
-            name: 'removeEmptyAttrs',
-            active: false,
-          }
-        ]
-      }
-    }),
-  ],
+  plugins: [react()],
   build: {
-    outDir: 'dist',
-    minify: 'esbuild',
-    target: 'esnext',
-    rollupOptions: {
-      output: {
-        manualChunks(id) {
-          if (id.includes('node_modules')) {
-            return id.toString().split('node_modules/')[1].split('/')[0].toString();
-          }
-        }
-      }
-    }
+    outDir: 'dist' // Ensure that this is set to 'dist'
   },
   server: {
     port: 3000,
-  },
-  optimizeDeps: {
-    include: ['react', 'react-dom'],
-  },
-});
+    // proxy: {
+    //   "/api": {
+    //     // target: "https://x-backend-ujvu.onrender.com",
+    //     target: "http://localhost:8080",
+    //     changeOrigin: true
+    //   }
+    // }
+  }
+})
