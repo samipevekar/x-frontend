@@ -13,7 +13,7 @@ import { formatPostDate } from "../../utils/date";
 
 const Post = ({ post }) => {
 
-	const URL = import.meta.env.VITE_URL	
+	const URL = import.meta.env.VITE_URL
 
 
 	const [comment, setComment] = useState("");
@@ -37,7 +37,13 @@ const Post = ({ post }) => {
 	// Handle delete post
 	const { mutate: deletePost, isPending: isDeleting } = useMutation({
 		mutationFn: async () => {
-			const res = await fetch(`${URL}/api/posts/${post._id}`, { method: "DELETE", credentials:"include" });
+			const res = await fetch(`${URL}/api/posts/${post._id}`, {
+				method: "DELETE",
+				headers: {
+					"auth-token": localStorage.getItem("auth-token")
+				},
+				credentials: "include"
+			},);
 			const data = await res.json();
 
 			if (!res.ok) throw new Error(data.error || "Something went wrong");
@@ -54,7 +60,14 @@ const Post = ({ post }) => {
 	// Handle like post
 	const { mutate: likePost, isPending: isLiking } = useMutation({
 		mutationFn: async () => {
-			const res = await fetch(`${URL}/api/posts/like/${originalPost._id}`, { method: "POST", credentials:"include" });
+			const res = await fetch(`${URL}/api/posts/like/${originalPost._id}`, {
+				method: "POST",
+				headers: {
+					"auth-token": localStorage.getItem("auth-token")
+				},
+				credentials: "include"
+
+			},);
 			const data = await res.json();
 
 			if (!res.ok) throw new Error(data.error || "Something went wrong");
@@ -81,8 +94,11 @@ const Post = ({ post }) => {
 		mutationFn: async () => {
 			const res = await fetch(`${URL}/api/posts/comment/${originalPost._id}`, {
 				method: "POST",
-				credentials:"include",
-				headers: { "Content-Type": "application/json" },
+				credentials: "include",
+				headers: {
+					"Content-Type": "application/json",
+					"auth-token": localStorage.getItem("auth-token")
+				},
 				body: JSON.stringify({ text: comment }),
 			});
 			const data = await res.json();
@@ -103,7 +119,13 @@ const Post = ({ post }) => {
 	// Handle bookmark post
 	const { mutate: bookmarkPost, isPending: isBookmarking } = useMutation({
 		mutationFn: async () => {
-			const res = await fetch(`${URL}/api/posts/bookmark/${originalPost._id}`, { method: "POST",credentials:"include", });
+			const res = await fetch(`${URL}/api/posts/bookmark/${originalPost._id}`, {
+				method: "POST",
+				headers: {
+					"auth-token": localStorage.getItem("auth-token")
+				},
+				credentials: "include",
+			});
 			const data = await res.json();
 
 			if (!res.ok) throw new Error(data.error || "Something went wrong");
@@ -131,7 +153,13 @@ const Post = ({ post }) => {
 	// Handle repost
 	const { mutate: repostPost, isPending: isReposting } = useMutation({
 		mutationFn: async () => {
-			const res = await fetch(`${URL}/api/posts/repost/${post._id}`, { method: "POST" ,credentials:"include"});
+			const res = await fetch(`${URL}/api/posts/repost/${post._id}`, {
+				method: "POST",
+				headers: {
+					"auth-token": localStorage.getItem("auth-token")
+				},
+				credentials: "include"
+			});
 			const data = await res.json();
 
 			if (!res.ok) throw new Error(data.error || "Something went wrong");
@@ -199,7 +227,7 @@ const Post = ({ post }) => {
 
 						{isMyPost && (
 							<span className='flex justify-end flex-1'>
-								{!isDeleting && <FaTrash className='cursor-pointer hover:text-red-500' onClick={()=>document.getElementById('my_modal_1').showModal()} />}
+								{!isDeleting && <FaTrash className='cursor-pointer hover:text-red-500' onClick={() => document.getElementById('my_modal_1').showModal()} />}
 								{isDeleting && (
 									<LoadingSpinner size="sm" />
 								)}

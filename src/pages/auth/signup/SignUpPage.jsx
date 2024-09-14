@@ -36,7 +36,7 @@ const SignUpPage = () => {
 
 				const data = await res.json();
 				if(!res.ok) throw new Error(data.error || "Failed to create account")
-				console.log(data)
+				localStorage.setItem("auth-token",data.token)
 				return data
 
 			} catch (error) {
@@ -56,7 +56,13 @@ const SignUpPage = () => {
 	};
 
 	const handleInputChange = (e) => {
-		setFormData({ ...formData, [e.target.name]: e.target.value });
+		const { name, value } = e.target;
+
+		if (name === "username") {
+			setFormData({ ...formData, [name]: value.toLowerCase() }); // Convert username to lowercase
+		} else {
+			setFormData({ ...formData, [name]: value });
+		}
 	};
 
 	return (

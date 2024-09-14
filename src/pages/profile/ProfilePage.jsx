@@ -46,7 +46,12 @@ const ProfilePage = () => {
 		queryKey: ["userProfile"],
 		queryFn: async () => {
 			try {
-				const res = await fetch(`${URL}/api/users/profile/${username}`, { credentials: "include" });
+				const res = await fetch(`${URL}/api/users/profile/${username}`, {
+					headers:{
+						"auth-token":localStorage.getItem("auth-token")
+					},
+					 credentials: "include" 
+					});
 				const data = await res.json();
 				if (!res.ok) {
 					throw new Error(data.error || "Something went wrong");
@@ -81,7 +86,12 @@ const ProfilePage = () => {
 		queryKey: ["userStory"],
 		queryFn: async () => {
 			try {
-				const res = await fetch(`${URL}/api/story/userstory/${user?._id}`, { credentials: "include" })
+				const res = await fetch(`${URL}/api/story/userstory/${user?._id}`, { 
+					headers:{
+						"auth-token":localStorage.getItem("auth-token")
+					},
+					credentials: "include" 
+				})
 				const data = await res.json();
 				if (!res.ok) {
 					throw new Error(data.message || "Failed to fetch user story");

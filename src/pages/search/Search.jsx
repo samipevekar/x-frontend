@@ -27,7 +27,12 @@ export default function Search() {
         queryFn: async () => {
             if (!debouncedSearch) return []; // Return empty if search is empty
             try {
-                const res = await fetch(`${URL}/api/users/search?user=${debouncedSearch}`, { credentials: "include" });
+                const res = await fetch(`${URL}/api/users/search?user=${debouncedSearch}`, {
+                    headers:{
+                        "auth-token":localStorage.getItem("auth-token")
+                    },
+                     credentials: "include"
+                     });
                 const data = await res.json();
                 if (!res.ok) {
                     throw new Error(data.error || "Something went wrong");

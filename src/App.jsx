@@ -23,7 +23,12 @@ function App() {
     queryKey: ['authUser'],
     queryFn: async () => {
       try {
-        const res = await fetch(`${URL}/api/auth/me`, { credentials: "include" });
+        const res = await fetch(`${URL}/api/auth/me`, {
+          headers: {
+            "auth-token": localStorage.getItem("auth-token")
+          },
+          credentials: "include"
+        });
         const data = await res.json();
         if (data.error) return null;
         if (!res.ok) {
@@ -46,6 +51,7 @@ function App() {
     );
   }
 
+  console.log(localStorage.getItem("auth-token"))
   return (
     <div className="flex max-w-6xl mx-auto">
       {authUser && (
@@ -87,7 +93,7 @@ function App() {
         </Routes>
       </Suspense>
       {authUser && (
-        <Suspense fallback={<RightPanelSkeleton/>}>
+        <Suspense fallback={<RightPanelSkeleton />}>
           <RightPanel />
         </Suspense>
       )}

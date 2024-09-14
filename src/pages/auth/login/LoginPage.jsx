@@ -34,6 +34,7 @@ const LoginPage = () => {
 	  
 		  	const data = await res.json();
 			if (!res.ok) throw new Error(data.error || "Failed to login");
+			localStorage.setItem("auth-token",data.token)
 			return data;
 			
 		  } catch (error) {

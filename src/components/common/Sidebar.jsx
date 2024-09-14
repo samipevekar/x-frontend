@@ -1,6 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
-import { Link } from "react-router-dom";
+import LoginPage from '../../pages/auth/login/LoginPage'
+import { Link, Navigate, useNavigate } from "react-router-dom";
 
 import XSvg from "../svgs/X";
 
@@ -13,35 +14,12 @@ import { FiSearch } from "react-icons/fi";
 
 const Sidebar = () => {
 
-	const URL = import.meta.env.VITE_URL
 
-	const queryClient = useQueryClient()
-	const {mutate:logout,isPending,isError,error} = useMutation({
-		mutationFn: async () => {
-			try {
-				const res = await fetch(`${URL}/api/auth/logout`,{
-					method: "POST",
-					credentials:"include",
-				})
-				
-				const authUser = await res.json();
-
-				if(!res.ok){
-					throw new Error(authUser.error || "Something went wrong")
-				}
-			} catch (error) {
-				throw new Error(error)
-			}
-		},
-		onSuccess: () => {
-			queryClient.invalidateQueries({queryKey:["authUser"]})
-
-			
-		},
-		onError: () => {
-			toast.error("Logout fail")
-		}
-	})
+	const handleLogoutClick = ()=>{
+		window.location.href = "/login"
+		localStorage.removeItem("auth-token")
+		
+	}
 
 	const {data:authUser} = useQuery({queryKey: ["authUser"]})
 	const {data:notifications} = useQuery({queryKey:["notifications"]})
@@ -124,11 +102,7 @@ const Sidebar = () => {
 								<p className='text-slate-500 text-sm'>@{authUser?.username}</p>
 							</div>
 							<BiLogOut className='w-5 h-5 cursor-pointer' 
-								onClick={(e)=>{
-									e.preventDefault();
-									logout()
-
-								}}							
+								onClick={handleLogoutClick}							
 							/>
 						</div>
 					</Link>

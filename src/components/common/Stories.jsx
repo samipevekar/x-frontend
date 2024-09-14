@@ -25,7 +25,12 @@ export default function Stories() {
         queryKey: ["followingStories"],
         queryFn: async () => {
             try {
-                const res = await fetch(`${URL}/api/story/followingstories`, { credentials: "include" });
+                const res = await fetch(`${URL}/api/story/followingstories`, {
+                    headers: {
+                        "auth-token": localStorage.getItem("auth-token")
+                    },
+                    credentials: "include"
+                });
                 const data = await res.json();
                 if (!res.ok) {
                     throw new Error(data.message || "Something went wrong");
@@ -45,7 +50,12 @@ export default function Stories() {
         queryKey: ["userStory"],
         queryFn: async () => {
             try {
-                const res = await fetch(`${URL}/api/story/mystory`, { credentials: "include" })
+                const res = await fetch(`${URL}/api/story/mystory`, {
+                    headers: {
+                        "auth-token": localStorage.getItem("auth-token")
+                    },
+                    credentials: "include",
+                })
                 const data = await res.json();
                 if (!res.ok) {
                     throw new Error(data.message || "Failed to fetch user story");
