@@ -220,7 +220,7 @@ const CreatePost = () => {
               className="btn btn-secondary rounded-full btn-sm text-white px-4"
               onClick={isRecording ? stopRecording : startRecording}
             >
-              {isRecording ? "Stop 🛑" : "Record"}
+              {isRecording ? "Stop 🛑" : "Record Audio"}
             </button>
             {isRecording && (
               <span className="text-sm text-gray-500">
