@@ -7,6 +7,9 @@ import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism'; // En
 import RightPanelSkeleton from '../../components/skeletons/RightPanelSkeleton';
 
 export default function AiChat() {
+
+  const HOST = import.meta.env.VITE_URL
+
   const [query, setQuery] = useState('');
   const [messages, setMessages] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -64,7 +67,7 @@ export default function AiChat() {
         setError(null);
         setMessages([...messages, { sender: 'user', text: query }]);
         
-        const response = await fetch(`http://localhost:8080/api/ai/chat/${query}`);
+        const response = await fetch(`${HOST}/api/ai/chat/${query}`);
         const data = await response.json();
 
         if (!response.ok) {
@@ -89,6 +92,7 @@ export default function AiChat() {
       {messages.length === 0 && (
         <div className='flex flex-col justify-center items-center'>
           <TbMessageChatbot className='h-40 w-40 text-primary' />
+          <h1 className='font-bold text-[40px]'><span className='text-primary'>Talk</span>Buddy</h1>
           <h2 className='text-[40px] font-bold max-sm:text-[30px] text-center'>Welcome, <span className='text-primary'>{authUser?.fullName}</span></h2>
         </div>
       )}
